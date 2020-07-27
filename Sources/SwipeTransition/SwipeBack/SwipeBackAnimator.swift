@@ -28,8 +28,21 @@ extension SwipeBackAnimator: UIViewControllerAnimatedTransitioning {
         transitionContext.containerView.insertSubview(to.view, belowSubview: from.view)
         toView = to.view
 
+		let containerWidth = transitionContext.containerView.bounds.width
+		let parallaxFactor = SwipeBackConfiguration.shared.parallaxFactor
+
         // parallax effect
-        to.view.transform.tx = -transitionContext.containerView.bounds.width * SwipeBackConfiguration.shared.parallaxFactor
+        to.view.transform.tx = -containerWidth * parallaxFactor
+
+		// when hidesBottomBarWhenPushed = true
+        var shouldAnimateTabBar = false
+        if let tabBar = to.tabBarController?.tabBar {
+            shouldAnimateTabBar = tabBar.frame.origin.x < 0
+            if shouldAnimateTabBar {
+				tabBar.frame.origin.x = -containerWidth * parallaxFactor
+                transitionContext.containerView.insertSubview(tabBar, belowSubview: from.view)
+            }
+        }
 
         // dim the back view
         let dimmedView = UIView(frame: to.view.bounds)
@@ -43,10 +56,18 @@ extension SwipeBackAnimator: UIViewControllerAnimatedTransitioning {
             delay: 0,
             options: UIView.AnimationOptions.curveLinear,
             animations: {
+				if shouldAnimateTabBar {
+					to.tabBarController!.tabBar.frame.origin.x = 0
+				}
+
                 to.view.transform = .identity
                 from.view.transform = CGAffineTransform(translationX: to.view.frame.width, y: 0)
                 dimmedView.alpha = 0
         }, completion: { [weak self] _ in
+			if shouldAnimateTabBar {
+				to.tabBarController!.view.addSubview(to.tabBarController!.tabBar)
+			}
+
             dimmedView.removeFromSuperview()
             from.view.transform = .identity
             self?.parent.onFinishTransition?(transitionContext)
