@@ -101,6 +101,18 @@ extension SwipeBackController: UIGestureRecognizerDelegate {
         return context.allowsTransitionStart
     }
 
+	public func gestureRecognizer(
+		_ gestureRecognizer: UIGestureRecognizer,
+		shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
+	) -> Bool {
+		guard gestureRecognizer == panGestureRecognizer,
+			let scrollView = otherGestureRecognizer.view as? UIScrollView
+			else { return false }
+
+		return scrollView.contentSize.width > 0 // is scrollable horizontally
+			&& scrollView.contentOffset.x <= 0 // is at origin
+	}
+
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         return !(touch.view is UISlider)
     }
