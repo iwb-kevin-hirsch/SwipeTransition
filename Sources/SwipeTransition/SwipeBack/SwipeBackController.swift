@@ -110,6 +110,25 @@ extension SwipeBackController: UIGestureRecognizerDelegate {
 			else { return false }
 
 		return scrollView.contentSize.width > 0 // is scrollable horizontally
+	}
+
+	// This will fail the swipe back recognition if swiping left on a horizontal scroll view that is not at origin
+	public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+		guard gestureRecognizer == panGestureRecognizer,
+			let scrollView = otherGestureRecognizer.view as? UIScrollView
+			else { return false }
+
+		return scrollView.contentSize.width > 0 // is scrollable horizontally
+			&& scrollView.contentOffset.x > 0 // is not at origin
+	}
+
+	// This will fail the a swiping left on a horizontal scroll view that is at origin in favor of swipe back
+	public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+		guard gestureRecognizer == panGestureRecognizer,
+			let scrollView = otherGestureRecognizer.view as? UIScrollView
+			else { return false }
+
+		return scrollView.contentSize.width > 0 // is scrollable horizontally
 			&& scrollView.contentOffset.x <= 0 // is at origin
 	}
 

@@ -22,8 +22,6 @@ final class OneFingerDirectionalPanGestureRecognizer: UIPanGestureRecognizer {
         self.direction = direction
         super.init(target: target, action: action)
         maximumNumberOfTouches = 1
-        cancelsTouchesInView = false
-        delaysTouchesBegan = true
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
