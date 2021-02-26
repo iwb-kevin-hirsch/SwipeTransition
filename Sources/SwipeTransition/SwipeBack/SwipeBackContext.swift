@@ -17,10 +17,29 @@ final class SwipeBackContext: Context<UINavigationController>, ContextType {
     }
 
     weak var pageViewControllerPanGestureRecognizer: UIPanGestureRecognizer?
+    var isCustomBackButton: ((UIBarButtonItem) -> Bool) = { _ in false }
+
+    /// When back button is removed we disable the swipe back (like the native behavior)
+    var hasBackButtonBeenReplaced: Bool {
+        let navigationItem: UINavigationItem?
+        if let navigationViewController = target as? UINavigationController {
+            navigationItem = navigationViewController.viewControllers.last?.navigationItem
+        } else {
+            navigationItem = target?.navigationItem
+        }
+
+        if let leftBarButtonItem = navigationItem?.leftBarButtonItem {
+            return !isCustomBackButton(leftBarButtonItem)
+        } else {
+            return navigationItem?.hidesBackButton ?? false
+        }
+    }
 
     override var allowsTransitionStart: Bool {
         guard let navigationController = target else { return false }
-        return navigationController.viewControllers.count > 1 && super.allowsTransitionStart
+        return navigationController.viewControllers.count > 1
+            && !hasBackButtonBeenReplaced
+            && super.allowsTransitionStart
     }
 
     func allowsTransitionFinish(recognizer: UIPanGestureRecognizer) -> Bool {

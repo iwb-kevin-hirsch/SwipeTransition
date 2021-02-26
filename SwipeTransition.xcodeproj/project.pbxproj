@@ -186,7 +186,7 @@
 		2467A8111FEFDA64007A7AC9 /* UINavigationController+AutoSwipeToDismiss.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+AutoSwipeToDismiss.h"; sourceTree = "<group>"; };
 		2467A8131FEFDA79007A7AC9 /* UINavigationController+AutoSwipeToDismiss.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+AutoSwipeToDismiss.m"; sourceTree = "<group>"; };
 		247E68A21FF2348600617B12 /* DelegateProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateProxy.swift; sourceTree = "<group>"; };
-		247E68AF1FF3466300617B12 /* SwipeBackContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeBackContext.swift; sourceTree = "<group>"; };
+		247E68AF1FF3466300617B12 /* SwipeBackContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeBackContext.swift; sourceTree = "<group>"; usesTabs = 1; };
 		24914076203B39B300D3E4CD /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
 		24914078203B475500D3E4CD /* TransitionHandleable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionHandleable.swift; sourceTree = "<group>"; };
 		24CD1BCB2154E4CC0065244F /* SwipeTransitionTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwipeTransitionTests-Bridging-Header.h"; sourceTree = "<group>"; };

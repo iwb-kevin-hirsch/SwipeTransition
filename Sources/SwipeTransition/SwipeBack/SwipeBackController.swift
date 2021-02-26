@@ -13,6 +13,10 @@ public final class SwipeBackController: NSObject {
     public var onStartTransition: ((UIViewControllerContextTransitioning) -> Void)?
     public var onFinishTransition: ((UIViewControllerContextTransitioning) -> Void)?
     private var isFirstPageOfPageViewController: (() -> Bool)?
+	public var isCustomBackButton: ((UIBarButtonItem) -> Bool) {
+		get { context.isCustomBackButton }
+		set { context.isCustomBackButton = newValue }
+	}
 
     public var isEnabled: Bool {
         get { return context.isEnabled }
